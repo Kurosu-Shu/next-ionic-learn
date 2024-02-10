@@ -6,7 +6,7 @@ export async function DELETE(
     { params }: { params: { id: string } }
 ) {
     const id = params.id;
-    const sql = `DELETE from products 
+    const sql = `DELETE FROM products 
                 WHERE Id = ?`;
 
     try {
@@ -17,4 +17,22 @@ export async function DELETE(
         return NextResponse.json(error);
     }
 
+}
+
+export async function GET(
+    request: Request,
+    { params }: { params: { id: string } }
+) {
+    const id = params.id;
+    const sql = `SELECT * 
+    FROM products 
+    WHERE Id = ?`;
+
+    try {
+        const data = await query(sql, [id]);
+        return NextResponse.json(data);
+    }
+    catch (error) {
+        return NextResponse.json(error);
+    }
 }
